@@ -24,19 +24,18 @@ public class Ejercicio003 {
                             {7, 8, 9}
                          };
         
-        for(int i = vector.length-1; i >= 0; i--){
+        for(int i = 0; i < vector.length; i++){
             System.out.println();
-            for(int j = vector[i].length-1; j >= 0; j--)
+            for(int j = 0; j < vector.length; j++)
                 System.out.print(matriz(vector)[i][j] + " ");
         }
         
     }
     public static int[][] matriz (int vector[][]){
-        int v[][] = new int [3][3];
-        for(int i = vector.length-1; i >= 0; i--){
-            for(int j = vector[i].length-1; j >= 0; j--)
-                v[j][i] = vector[i][j];    
-        }
+        int v[][] = new int [vector.length][vector.length];
+        for(int i = 0; i < vector.length; i++)
+            for(int j = 0; j < vector.length; j++)
+                v[j][vector.length-1-i] = vector[i][j];    
         return v;
     }
 }

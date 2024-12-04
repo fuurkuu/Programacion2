@@ -5,14 +5,13 @@ package Examen1ºEV;
 
 public class Ejercicio005 {
     public static void main(String arg[]) { 
-        int resultado = sumar(51);
-        System.out.println("El resultado es " + resultado);
+        
+        System.out.println("El resultado es " + sumar(47));
     }
     public static int sumar(int numero){
-        if((numero%10) != 0){
-            return sumar(numero/10 )+ numero; 
-        }
+        if(numero == 0)
+            return 0;
         else 
-           return numero;
+           return sumar(numero/10)+ (numero%10); 
     }
 }
