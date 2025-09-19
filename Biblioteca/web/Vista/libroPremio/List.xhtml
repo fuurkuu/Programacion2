@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLibroPremioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLibroPremioEmpty}" rendered="#{libroPremioController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{libroPremioController.items.rowCount > 0}">
+                    <h:outputText value="#{libroPremioController.pagination.pageFirstItem + 1}..#{libroPremioController.pagination.pageLastItem + 1}/#{libroPremioController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{libroPremioController.previous}" value="#{bundle.Previous} #{libroPremioController.pagination.pageSize}" rendered="#{libroPremioController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{libroPremioController.next}" value="#{bundle.Next} #{libroPremioController.pagination.pageSize}" rendered="#{libroPremioController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{libroPremioController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroPremioTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroPremioTitle_libroId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libroId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroPremioTitle_premioId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.premioId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{libroPremioController.prepareView}" value="#{bundle.ListLibroPremioViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libroPremioController.prepareEdit}" value="#{bundle.ListLibroPremioEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libroPremioController.destroy}" value="#{bundle.ListLibroPremioDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{libroPremioController.prepareCreate}" value="#{bundle.ListLibroPremioCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLibroPremioIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
