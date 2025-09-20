@@ -1,4 +1,4 @@
-package Modelo.util;
+package Controlador.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

@@ -1,9 +1,9 @@
 package Controlador;
 
 import Entidades.AutorLibro;
-import Modelo.util.JsfUtil;
-import Modelo.util.PaginationHelper;
-import Modelos.AutorLibroFacade;
+import Controlador.util.JsfUtil;
+import Controlador.util.PaginationHelper;
+import Modelo.AutorLibroFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class AutorLibroController implements Serializable {
     private AutorLibro current;
     private DataModel items = null;
     @EJB
-    private Modelos.AutorLibroFacade ejbFacade;
+    private Modelo.AutorLibroFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

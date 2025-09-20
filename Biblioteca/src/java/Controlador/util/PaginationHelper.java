@@ -1,4 +1,4 @@
-package Modelo.util;
+package Controlador.util;
 
 import javax.faces.model.DataModel;
 

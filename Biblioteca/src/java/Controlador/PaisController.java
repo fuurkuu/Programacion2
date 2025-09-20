@@ -1,9 +1,9 @@
 package Controlador;
 
 import Entidades.Pais;
-import Modelo.util.JsfUtil;
-import Modelo.util.PaginationHelper;
-import Modelos.PaisFacade;
+import Controlador.util.JsfUtil;
+import Controlador.util.PaginationHelper;
+import Modelo.PaisFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class PaisController implements Serializable {
     private Pais current;
     private DataModel items = null;
     @EJB
-    private Modelos.PaisFacade ejbFacade;
+    private Modelo.PaisFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
