@@ -3,9 +3,10 @@ package Controlador;
 import Entidades.Autor;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.AutorFacade;
+import Repositorios.AutorFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -25,7 +26,7 @@ public class AutorController implements Serializable {
     private Autor current;
     private DataModel items = null;
     @EJB
-    private Modelo.AutorFacade ejbFacade;
+    private Repositorios.AutorFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -185,7 +186,7 @@ public class AutorController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return getSelectItems(ejbFacade.autoresOrdenados(), true);
     }
 
     public Autor getAutor(java.lang.Integer id) {
@@ -229,7 +230,15 @@ public class AutorController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Autor.class.getName());
             }
         }
-
+        
     }
+        public static SelectItem[] getSelectItems(List<Autor> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        for (Autor autor : entities) {
+            items[i++] = new SelectItem(autor, (autor.getNomAutor()+ " " + autor.getApellido1() + " " + autor.getApellido2()));
+        }
+        return items;
+    }        
 
 }

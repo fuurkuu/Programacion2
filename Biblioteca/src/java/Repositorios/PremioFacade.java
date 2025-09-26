@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Repositorios;
 
 import Entidades.Autor;
+import Entidades.Premio;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author anton
  */
 @Stateless
-public class AutorFacade extends AbstractFacade<Autor> {
+public class PremioFacade extends AbstractFacade<Premio> {
 
     @PersistenceContext(unitName = "BibliotecaPU")
     private EntityManager em;
@@ -25,8 +28,13 @@ public class AutorFacade extends AbstractFacade<Autor> {
         return em;
     }
 
-    public AutorFacade() {
-        super(Autor.class);
+    public PremioFacade() {
+        super(Premio.class);
     }
-    
+        public List<Premio> autoresOrdenados(){
+        em = this.getEntityManager();
+        Query q;
+        q = em.createNamedQuery("Autor.findAllOrdenado");
+        return q.getResultList();
+    }
 }

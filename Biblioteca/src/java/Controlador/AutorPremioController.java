@@ -3,7 +3,7 @@ package Controlador;
 import Entidades.AutorPremio;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.AutorPremioFacade;
+import Repositorios.AutorPremioFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class AutorPremioController implements Serializable {
     private AutorPremio current;
     private DataModel items = null;
     @EJB
-    private Modelo.AutorPremioFacade ejbFacade;
+    private Repositorios.AutorPremioFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

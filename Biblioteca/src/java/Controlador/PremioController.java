@@ -3,9 +3,10 @@ package Controlador;
 import Entidades.Premio;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.PremioFacade;
+import Repositorios.PremioFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -25,7 +26,7 @@ public class PremioController implements Serializable {
     private Premio current;
     private DataModel items = null;
     @EJB
-    private Modelo.PremioFacade ejbFacade;
+    private Repositorios.PremioFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -230,6 +231,14 @@ public class PremioController implements Serializable {
             }
         }
 
+    }
+        public static SelectItem[] getSelectItems(List<Autor> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        for (Autor autor : entities) {
+            items[i++] = new SelectItem(autor, (autor.getNomAutor()+ " " + autor.getApellido1() + " " + autor.getApellido2()));
+        }
+        return items;
     }
 
 }

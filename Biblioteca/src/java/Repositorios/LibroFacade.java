@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Repositorios;
 
-import Entidades.LibroPremio;
+import Entidades.Libro;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author anton
  */
 @Stateless
-public class LibroPremioFacade extends AbstractFacade<LibroPremio> {
+public class LibroFacade extends AbstractFacade<Libro> {
 
     @PersistenceContext(unitName = "BibliotecaPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class LibroPremioFacade extends AbstractFacade<LibroPremio> {
         return em;
     }
 
-    public LibroPremioFacade() {
-        super(LibroPremio.class);
+    public LibroFacade() {
+        super(Libro.class);
     }
     
 }

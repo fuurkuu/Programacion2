@@ -3,7 +3,7 @@ package Controlador;
 import Entidades.Libro;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.LibroFacade;
+import Repositorios.LibroFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class LibroController implements Serializable {
     private Libro current;
     private DataModel items = null;
     @EJB
-    private Modelo.LibroFacade ejbFacade;
+    private Repositorios.LibroFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Repositorios;
 
-import Entidades.AutorLibro;
+import Entidades.Pais;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author anton
  */
 @Stateless
-public class AutorLibroFacade extends AbstractFacade<AutorLibro> {
+public class PaisFacade extends AbstractFacade<Pais> {
 
     @PersistenceContext(unitName = "BibliotecaPU")
     private EntityManager em;
@@ -25,8 +27,14 @@ public class AutorLibroFacade extends AbstractFacade<AutorLibro> {
         return em;
     }
 
-    public AutorLibroFacade() {
-        super(AutorLibro.class);
+    public PaisFacade() {
+        super(Pais.class);
     }
     
+    public List<Pais> paisesOrdenados(){
+        em = this.getEntityManager();
+        Query q;
+        q = em.createNamedQuery("Pais.findOrdenado");
+        return q.getResultList();
+    }
 }

@@ -3,9 +3,10 @@ package Controlador;
 import Entidades.Pais;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.PaisFacade;
+import Repositorios.PaisFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -25,7 +26,7 @@ public class PaisController implements Serializable {
     private Pais current;
     private DataModel items = null;
     @EJB
-    private Modelo.PaisFacade ejbFacade;
+    private Repositorios.PaisFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -185,7 +186,7 @@ public class PaisController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return getSelectItems(ejbFacade.paisesOrdenados(), true);
     }
 
     public Pais getPais(java.lang.Integer id) {
@@ -230,6 +231,15 @@ public class PaisController implements Serializable {
             }
         }
 
+    }
+    
+        public static SelectItem[] getSelectItems(List<Pais> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        for (Pais pais : entities) {
+            items[i++] = new SelectItem(pais, pais.getNomPais());
+        }
+        return items;
     }
 
 }

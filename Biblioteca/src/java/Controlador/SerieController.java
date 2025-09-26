@@ -3,7 +3,7 @@ package Controlador;
 import Entidades.Serie;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
-import Modelo.SerieFacade;
+import Repositorios.SerieFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class SerieController implements Serializable {
     private Serie current;
     private DataModel items = null;
     @EJB
-    private Modelo.SerieFacade ejbFacade;
+    private Repositorios.SerieFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

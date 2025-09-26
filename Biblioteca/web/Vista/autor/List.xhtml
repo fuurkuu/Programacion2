@@ -22,27 +22,9 @@
                     <h:dataTable value="#{autorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_id}"/>
+                                <h:outputText value="Nombre"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_nomAutor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomAutor}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_apellido1}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido1}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_apellido2}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido2}"/>
+                            <h:outputText value="#{item.nomAutor} #{item.apellido1} #{item.apellido2} "/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
