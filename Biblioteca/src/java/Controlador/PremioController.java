@@ -188,7 +188,14 @@ public class PremioController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    public SelectItem[] getItemsPorLibro() {
+        return getSelectItems(ejbFacade.premiosLibro(), true);
+    }
+    
+    public SelectItem[] getItemsPorAutor() {
+        return getSelectItems(ejbFacade.premiosAutor(), true);
+    }
+    
     public Premio getPremio(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
@@ -232,11 +239,11 @@ public class PremioController implements Serializable {
         }
 
     }
-        public static SelectItem[] getSelectItems(List<Autor> entities, boolean selectOne) {
+        public static SelectItem[] getSelectItems(List<Premio> entities, boolean selectOne) {
         SelectItem[] items = new SelectItem[entities.size()];
         int i = 0;
-        for (Autor autor : entities) {
-            items[i++] = new SelectItem(autor, (autor.getNomAutor()+ " " + autor.getApellido1() + " " + autor.getApellido2()));
+        for (Premio premio : entities) {
+            items[i++] = new SelectItem(premio, premio.getNomPremio());
         }
         return items;
     }

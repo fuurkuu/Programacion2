@@ -6,6 +6,7 @@ import Controlador.util.PaginationHelper;
 import Repositorios.LibroFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -185,7 +186,7 @@ public class LibroController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return getSelectItems(ejbFacade.libroOrdenado(), true);
     }
 
     public Libro getLibro(java.lang.Integer id) {
@@ -231,5 +232,13 @@ public class LibroController implements Serializable {
         }
 
     }
+        public static SelectItem[] getSelectItems(List<Libro> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        for (Libro libro : entities) {
+            items[i++] = new SelectItem(libro, libro.getNomLibro());
+        }
+        return items;
+    }        
 
 }

@@ -5,7 +5,6 @@
  */
 package Repositorios;
 
-import Entidades.Autor;
 import Entidades.Premio;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,10 +30,17 @@ public class PremioFacade extends AbstractFacade<Premio> {
     public PremioFacade() {
         super(Premio.class);
     }
-        public List<Premio> autoresOrdenados(){
+    
+    public List<Premio> premiosLibro(){
         em = this.getEntityManager();
         Query q;
-        q = em.createNamedQuery("Autor.findAllOrdenado");
+        q = em.createNamedQuery("Premio.findByTipoLibro");
+        return q.getResultList();
+    }
+    public List<Premio> premiosAutor(){
+        em = this.getEntityManager();
+        Query q;
+        q = em.createNamedQuery("Premio.findByTipoAutor");
         return q.getResultList();
     }
 }

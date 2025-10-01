@@ -6,9 +6,11 @@
 package Repositorios;
 
 import Entidades.Libro;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,10 @@ public class LibroFacade extends AbstractFacade<Libro> {
     public LibroFacade() {
         super(Libro.class);
     }
-    
+        public List<Libro> libroOrdenado(){
+        em = this.getEntityManager();
+        Query q;
+        q = em.createNamedQuery("Libro.findAllOrdenado");
+        return q.getResultList();
+    }
 }

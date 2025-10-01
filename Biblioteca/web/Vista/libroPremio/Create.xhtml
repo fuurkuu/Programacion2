@@ -23,7 +23,7 @@
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateLibroPremioLabel_premioId}" for="premioId" />
                     <h:selectOneMenu id="premioId" value="#{libroPremioController.selected.premioId}" title="#{bundle.CreateLibroPremioTitle_premioId}" required="true" requiredMessage="#{bundle.CreateLibroPremioRequiredMessage_premioId}">
-                        <f:selectItems value="#{premioController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{premioController.itemsPorLibro}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
