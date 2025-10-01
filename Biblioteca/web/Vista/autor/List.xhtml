@@ -12,62 +12,37 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListAutorEmpty}" rendered="#{autorController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{autorController.items.rowCount > 0}">
-                    <h:outputText value="#{autorController.pagination.pageFirstItem + 1}..#{autorController.pagination.pageLastItem + 1}/#{autorController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{autorController.previous}" value="#{bundle.Previous} #{autorController.pagination.pageSize}" rendered="#{autorController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{autorController.next}" value="#{bundle.Next} #{autorController.pagination.pageSize}" rendered="#{autorController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{autorController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nombre"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomAutor} #{item.apellido1} #{item.apellido2} "/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_FNac}"/>
-                            </f:facet>
+                <p:dataTable value="#{autorController.items}" var="item" rows="10" style="border:solid 1px"
+                     paginator="true" paginatorPosition="both"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                    <p:column headerText="Nombre" sortBy="#{item.apellido1}" width="250px">
+                            <h:outputText value="#{item.apellido1} #{item.apellido2}, #{item.nomAutor} "/>
+                        </p:column>
+                        <p:column headerText="F. Nac" sortBy="#{item.FNac}">
                             <h:outputText value="#{item.FNac}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_FDef}"/>
-                            </f:facet>
+                        </p:column>
+                        <p:column headerText="F. Def" sortBy="#{item.FDef}">
                             <h:outputText value="#{item.FDef}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_foto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.foto}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_localidad}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.localidad}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_biografia}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.biografia}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAutorTitle_paisId}"/>
-                            </f:facet>
+                        </p:column>
+                        <p:column headerText="Foto">
+                        <p:commandLink title="#{item.nomAutor}" onclick="PF('dlg#{item.id}').show(); return false;">
+                            <h:graphicImage library="imagenes" name="#{item.foto}" height="45"/>
+                        </p:commandLink>
+
+                        <p:dialog widgetVar="dlg#{item.id}" header="#{item.nomAutor}" modal="true" resizable="false" closable="true">
+                            <h:graphicImage library="imagenes" name="#{item.foto}" width="400"/>
+                        </p:dialog>
+                        </p:column>
+                        <p:column headerText="País">
                             <h:outputText value="#{item.paisId}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -76,9 +51,8 @@
                             <h:commandLink action="#{autorController.prepareEdit}" value="#{bundle.ListAutorEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{autorController.destroy}" value="#{bundle.ListAutorDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                        </p:column>
+                    </p:dataTable>
                 <br />
                 <h:commandLink action="#{autorController.prepareCreate}" value="#{bundle.ListAutorCreateLink}"/>
                 <br />
