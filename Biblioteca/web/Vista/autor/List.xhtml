@@ -12,35 +12,41 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <p:dataTable value="#{autorController.items}" var="item" rows="10" style="border:solid 1px"
+                <p:dataTable value="#{autorController.items}" var="autor" rows="10" style="border:solid 1px"
                      paginator="true" paginatorPosition="both"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                      rowsPerPageTemplate="5,10,{ShowAll|'All'}">
-                    <p:column headerText="Nombre" sortBy="#{item.apellido1}" width="250px">
-                            <h:outputText value="#{item.apellido1} #{item.apellido2}, #{item.nomAutor} "/>
+                    <p:column headerText="Nombre" sortBy="#{autor.apellido1}" width="250px">
+                            <h:outputText value="#{autor.apellido1} #{autor.apellido2}, #{autor.nomAutor} "/>
                         </p:column>
-                        <p:column headerText="F. Nac" sortBy="#{item.FNac}">
-                            <h:outputText value="#{item.FNac}">
+                        <p:column headerText="F. Nac" width="75" sortBy="#{autor.FNac}">
+                            <h:outputText value="#{autor.FNac}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="F. Def" sortBy="#{item.FDef}">
-                            <h:outputText value="#{item.FDef}">
+                        <p:column headerText="F. Def" width="75" sortBy="#{autor.FDef}">
+                            <h:outputText value="#{autor.FDef}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
+                        </p:column>
+                        <p:column headerText="Edad" sortBy="#{autor.FNac}" width="75">
+                            <h:outputText value="#{autorController.calcularEdad(autor.FNac)}" style="display:#{autorController.mostrarEdad(autor)}"/>   
+                        </p:column>
+                        <p:column headerText="Sus Libros" width="150" sortBy="#{autor.FNac}">
+                            <h:outputText value=""/>   
                         </p:column>
                         <p:column headerText="Foto">
-                        <p:commandLink title="#{item.nomAutor}" onclick="PF('dlg#{item.id}').show(); return false;">
-                            <h:graphicImage library="imagenes" name="#{item.foto}" height="45"/>
+                        <p:commandLink title="#{autor.nomAutor}" onclick="PF('dlg#{autor.id}').show(); return false;">
+                            <h:graphicImage library="imagenes" name="#{autor.foto}" height="45"/>
                         </p:commandLink>
-
-                        <p:dialog widgetVar="dlg#{item.id}" header="#{item.nomAutor}" modal="true" resizable="false" closable="true">
-                            <h:graphicImage library="imagenes" name="#{item.foto}" width="400"/>
+                        <p:dialog widgetVar="dlg#{autor.id}" header="#{autor.nomAutor}" modal="true" resizable="false" closable="true">
+                            <h:graphicImage library="imagenes" name="#{autor.foto}" width="400"/>
                         </p:dialog>
                         </p:column>
                         <p:column headerText="País">
-                            <h:outputText value="#{item.paisId}"/>
+                            <h:graphicImage library="banderas" name="#{autor.paisId.bandera}" height="45"/>
+                            <br><h:outputText value="#{autor.paisId.nomPais}"/></br>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
