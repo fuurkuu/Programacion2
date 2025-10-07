@@ -5,6 +5,7 @@
  */
 package Repositorios;
 
+import Entidades.Autor;
 import Entidades.Libro;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -34,6 +35,12 @@ public class LibroFacade extends AbstractFacade<Libro> {
         em = this.getEntityManager();
         Query q;
         q = em.createNamedQuery("Libro.findAllOrdenado");
+        return q.getResultList();
+    }
+        public List<Libro> libroAutorOrdenado(Autor autor){
+        em = this.getEntityManager();
+        Query q;
+        q = em.createNamedQuery("Libro.findByAutor").setParameter("elAutor", autor);
         return q.getResultList();
     }
 }

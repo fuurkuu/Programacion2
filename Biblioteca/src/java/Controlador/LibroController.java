@@ -3,6 +3,7 @@ package Controlador;
 import Entidades.Libro;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
+import Entidades.Autor;
 import Repositorios.LibroFacade;
 
 import java.io.Serializable;
@@ -239,6 +240,9 @@ public class LibroController implements Serializable {
             items[i++] = new SelectItem(libro, libro.getNomLibro());
         }
         return items;
+    }
+        public List<Libro> cargarLibrosAutor(Autor autor){
+            return ejbFacade.libroAutorOrdenado(autor);
     }        
 
 }

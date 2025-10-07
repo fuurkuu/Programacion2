@@ -33,8 +33,10 @@
                         <p:column headerText="Edad" sortBy="#{autor.FNac}" width="75">
                             <h:outputText value="#{autorController.calcularEdad(autor.FNac)}" style="display:#{autorController.mostrarEdad(autor)}"/>   
                         </p:column>
-                        <p:column headerText="Sus Libros" width="150" sortBy="#{autor.FNac}">
-                            <h:outputText value=""/>   
+                        <p:column headerText="Sus Libros" width="250">
+                            <h:selectManyListbox id="susLibros" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
+                                <f:selectItems value="#{libroController.cargarLibrosAutor(autor)}" var="libro" itemValue="#{libro.id}" itemLabel="#{libro.ano} - #{libro.nomLibro}"/>
+                            </h:selectManyListbox>
                         </p:column>
                         <p:column headerText="Foto">
                         <p:commandLink title="#{autor.nomAutor}" onclick="PF('dlg#{autor.id}').show(); return false;">
