@@ -43,6 +43,9 @@
                                 <f:selectItems value="#{libro.libroPremioList}" var="libroPremio" itemLabel="#{libroPremio.premioId.nomPremio}"/> 
                             </h:selectManyListbox>
                         </p:column>
+                        <p:column headerText="Pélicula" style="text-align: center">
+                            <h:graphicImage library="iconos" name="trailer.png" rendered="#{libroController.tienePeli(libro)}" height="35"/>
+                        </p:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>

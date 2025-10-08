@@ -243,6 +243,9 @@ public class LibroController implements Serializable {
     }
         public List<Libro> cargarLibrosAutor(Autor autor){
             return ejbFacade.libroAutorOrdenado(autor);
-    }        
+    }
+        public boolean tienePeli(Libro libro){
+            return(libro.getPelicula() != "");
+    }
 
 }
