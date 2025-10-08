@@ -25,9 +25,9 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column headerText="Portada">
+                        <p:column headerText="Portada" width="250">
                         <p:commandLink title="#{libro.nomLibro}" onclick="PF('dlg#{libro.id}').show(); return false;">
-                            <h:graphicImage library="portadas" name="#{libro.portada}" height="45"/>
+                            <h:graphicImage library="portadas" name="#{libro.portada}" height="60"/>
                         </p:commandLink>
                         <p:dialog widgetVar="dlg#{libro.id}" header="#{libro.nomLibro}" modal="true" resizable="false" closable="true">
                             <h:graphicImage library="portadas" name="#{libro.portada}" width="400"/>
