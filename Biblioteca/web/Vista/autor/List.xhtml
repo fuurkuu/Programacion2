@@ -17,7 +17,7 @@
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                      rowsPerPageTemplate="5,10,{ShowAll|'All'}">
-                    <p:column headerText="Nombre" sortBy="#{autor.apellido1}" width="250px">
+                        <p:column headerText="Nombre" sortBy="#{autor.apellido1}" width="250px">
                             <h:outputText value="#{autor.apellido1} #{autor.apellido2}, #{autor.nomAutor} "/>
                         </p:column>
                         <p:column headerText="F. Nac" width="75" sortBy="#{autor.FNac}">
@@ -36,6 +36,11 @@
                         <p:column headerText="Sus Libros" width="250">
                             <h:selectManyListbox id="susLibros" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
                                 <f:selectItems value="#{libroController.cargarLibrosAutor(autor)}" var="libro" itemValue="#{libro.id}" itemLabel="#{libro.ano} - #{libro.nomLibro}"/>
+                            </h:selectManyListbox>
+                        </p:column>
+                        <p:column headerText="Sus Premios" width="250">
+                            <h:selectManyListbox id="susPremios" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
+                                <f:selectItems value="#{autor.autorPremioList}" var="autorPremio" itemLabel="#{autorPremio.anio} - #{autorPremio.premioId.nomPremio}"/> 
                             </h:selectManyListbox>
                         </p:column>
                         <p:column headerText="Foto">
