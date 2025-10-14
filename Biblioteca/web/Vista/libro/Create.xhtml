@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,28 +15,36 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{libroController.selected.id}" title="#{bundle.CreateLibroTitle_id}" required="true" requiredMessage="#{bundle.CreateLibroRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_nomLibro}" for="nomLibro" />
-                    <h:inputText id="nomLibro" value="#{libroController.selected.nomLibro}" title="#{bundle.CreateLibroTitle_nomLibro}" />
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_ano}" for="ano" />
-                    <h:inputText id="ano" value="#{libroController.selected.ano}" title="#{bundle.CreateLibroTitle_ano}" />
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_portada}" for="portada" />
-                    <h:inputText id="portada" value="#{libroController.selected.portada}" title="#{bundle.CreateLibroTitle_portada}" required="true" requiredMessage="#{bundle.CreateLibroRequiredMessage_portada}"/>
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_nomArchivo}" for="nomArchivo" />
-                    <h:inputText id="nomArchivo" value="#{libroController.selected.nomArchivo}" title="#{bundle.CreateLibroTitle_nomArchivo}" required="true" requiredMessage="#{bundle.CreateLibroRequiredMessage_nomArchivo}"/>
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_pelicula}" for="pelicula" />
-                    <h:inputText id="pelicula" value="#{libroController.selected.pelicula}" title="#{bundle.CreateLibroTitle_pelicula}" />
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_comentario}" for="comentario" />
-                    <h:inputTextarea rows="4" cols="30" id="comentario" value="#{libroController.selected.comentario}" title="#{bundle.CreateLibroTitle_comentario}" />
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_indiceSerie}" for="indiceSerie" />
-                    <h:inputText id="indiceSerie" value="#{libroController.selected.indiceSerie}" title="#{bundle.CreateLibroTitle_indiceSerie}" required="true" requiredMessage="#{bundle.CreateLibroRequiredMessage_indiceSerie}"/>
-                    <h:outputLabel value="#{bundle.CreateLibroLabel_serieId}" for="serieId" />
-                    <h:selectOneMenu id="serieId" value="#{libroController.selected.serieId}" title="#{bundle.CreateLibroTitle_serieId}" >
+                <p:panel header="Crear un nuevo libro">
+                <h:panelGrid columns="4">
+                    <p:outputLabel value="Título" for="nomLibro" />
+                    <p:inputText id="nomLibro" value="#{libroController.selected.nomLibro}" title="#{bundle.CreateLibroTitle_nomLibro}" />
+                    <p:outputLabel value="Año Publicación" for="ano" />
+                    <p:inputText id="ano" value="#{libroController.selected.ano}" title="#{bundle.CreateLibroTitle_ano}" />
+                    <p:outputLabel value="Portada" for="portada" />
+                    <p:inputText id="portada" value="#{libroController.selected.portada}" title="#{bundle.CreateLibroTitle_portada}" />
+                    <p:outputLabel value="Autores" for="losAutores" />
+                    <h:selectManyListbox id="losAutores" value="#{libroController.selected.autorLibroList}" size="5">
+                        <f:selectItems value="#{autorController.itemsAvailableSelectOne}"/>
+                    </h:selectManyListbox>
+                    <p:outputLabel value="Premios" for="losPremios" />
+                    <h:selectManyListbox id="losPremios" value="#{libroController.selected.libroPremioList}" size="5">
+                        <f:selectItems value="#{premioController.itemsPorLibro}"/> 
+                    </h:selectManyListbox>
+                    <p:outputLabel value="Archivo" for="nomArchivo" />
+                    <p:inputText id="nomArchivo" value="#{libroController.selected.nomArchivo}" title="#{bundle.CreateLibroTitle_nomArchivo}" />
+                    <p:outputLabel value="Película" for="pelicula" />
+                    <p:inputText id="pelicula" value="#{libroController.selected.pelicula}" title="#{bundle.CreateLibroTitle_pelicula}" />
+                    <p:outputLabel value="Comentario" for="comentario" />
+                    <p:inputTextarea rows="4" cols="30" id="comentario" value="#{libroController.selected.comentario}" title="#{bundle.CreateLibroTitle_comentario}" />
+                    <p:outputLabel value="Nº en la Serie" for="indiceSerie" />
+                    <p:inputText id="indiceSerie" value="#{libroController.selected.indiceSerie}" title="#{bundle.CreateLibroTitle_indiceSerie}"/>
+                    <p:outputLabel value="Serie" for="serieId" />
+                    <p:selectOneMenu id="serieId" value="#{libroController.selected.serieId}" title="#{bundle.CreateLibroTitle_serieId}" >
                         <f:selectItems value="#{serieController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                    </p:selectOneMenu>
                 </h:panelGrid>
+                </p:panel>
                 <br />
                 <h:commandLink action="#{libroController.create}" value="#{bundle.CreateLibroSaveLink}" />
                 <br />

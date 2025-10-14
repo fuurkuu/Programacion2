@@ -239,9 +239,9 @@ public class AutorController implements Serializable {
         int i = 0;
         for (Autor autor : entities) {
             items[i++] = new SelectItem(autor, (autor.getNomAutor()+ " " + autor.getApellido1() + " " + autor.getApellido2()));
-        }
+            }
         return items;
-    }        
+        }        
         public int calcularEdad (Date fnac){
             Calendar fechaActual = Calendar.getInstance();
             Calendar fechaNacimiento = Calendar.getInstance();
