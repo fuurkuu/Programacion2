@@ -192,7 +192,7 @@ public class LibroPremioController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = LibroPremio.class)
+    @FacesConverter(forClass = LibroPremio.class, value="premiosLibrosConverter")
     public static class LibroPremioControllerConverter implements Converter {
 
         @Override

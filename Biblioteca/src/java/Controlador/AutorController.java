@@ -3,6 +3,8 @@ package Controlador;
 import Entidades.Autor;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
+import Entidades.AutorLibro;
+import Entidades.Libro;
 import Repositorios.AutorFacade;
 
 import java.io.Serializable;
@@ -190,6 +192,10 @@ public class AutorController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return getSelectItems(ejbFacade.autoresOrdenados(), true);
     }
+    
+    public SelectItem[] cargarAutorLibro(Libro libro) {
+        return getSelectItemsCreacion(libro,ejbFacade.autoresOrdenados(), true);
+    }
 
     public Autor getAutor(java.lang.Integer id) {
         return ejbFacade.find(id);
@@ -232,34 +238,50 @@ public class AutorController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Autor.class.getName());
             }
         }
-        
+
     }
-        public static SelectItem[] getSelectItems(List<Autor> entities, boolean selectOne) {
+
+    public static SelectItem[] getSelectItems(List<Autor> entities, boolean selectOne) {
         SelectItem[] items = new SelectItem[entities.size()];
         int i = 0;
         for (Autor autor : entities) {
-            items[i++] = new SelectItem(autor, (autor.getNomAutor()+ " " + autor.getApellido1() + " " + autor.getApellido2()));
-            }
+            items[i++] = new SelectItem(autor, (autor.getNomAutor() + " " + autor.getApellido1() + " " + autor.getApellido2()));
+        }
         return items;
-        }        
-        public int calcularEdad (Date fnac){
-            Calendar fechaActual = Calendar.getInstance();
-            Calendar fechaNacimiento = Calendar.getInstance();
-            fechaNacimiento.setTime(fnac);
-            int ano = fechaActual.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
-            int mes = fechaActual.get(Calendar.MONTH) - fechaNacimiento.get(Calendar.MONTH);
-            int dia = fechaActual.get(Calendar.DATE) - fechaNacimiento.get(Calendar.DATE);
-            if((mes < 0) || (mes == 0 & dia < 0)) 
-                ano--;
-            return ano;
-        }
+    }
 
-        public String mostrarEdad(Autor autor){
-            if(autor.getFDef() == null){
-                return "";
-            }
-            else{
-                return "none";
-            }
+    public static SelectItem[] getSelectItemsCreacion(Libro libro, List<Autor> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        AutorLibro autLib;
+        for (Autor autor : entities) {
+            autLib = new AutorLibro();
+            autLib.setAutorId(autor);
+            autLib.setLibroId(libro);
+            autLib.setId(i);
+            items[i++] = new SelectItem(autLib,(autLib.getAutorId().getNomAutor() + " " + autLib.getAutorId().getApellido1() + " " + autLib.getAutorId().getApellido2()));
         }
+        return items;
+    }
+
+    public int calcularEdad(Date fnac) {
+        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaNacimiento = Calendar.getInstance();
+        fechaNacimiento.setTime(fnac);
+        int ano = fechaActual.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
+        int mes = fechaActual.get(Calendar.MONTH) - fechaNacimiento.get(Calendar.MONTH);
+        int dia = fechaActual.get(Calendar.DATE) - fechaNacimiento.get(Calendar.DATE);
+        if ((mes < 0) || (mes == 0 & dia < 0)) {
+            ano--;
+        }
+        return ano;
+    }
+
+    public String mostrarEdad(Autor autor) {
+        if (autor.getFDef() == null) {
+            return "";
+        } else {
+            return "none";
+        }
+    }
 }

@@ -192,7 +192,7 @@ public class AutorLibroController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = AutorLibro.class)
+    @FacesConverter(forClass = AutorLibro.class, value="autoresLibrosConverter")
     public static class AutorLibroControllerConverter implements Converter {
 
         @Override

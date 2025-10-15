@@ -25,11 +25,13 @@
                     <p:inputText id="portada" value="#{libroController.selected.portada}" title="#{bundle.CreateLibroTitle_portada}" />
                     <p:outputLabel value="Autores" for="losAutores" />
                     <h:selectManyListbox id="losAutores" value="#{libroController.selected.autorLibroList}" size="5">
-                        <f:selectItems value="#{autorController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{autorController.cargarAutorLibro(libroController.selected)}"/>
+                        <f:converter converterId="autoresLibrosConverter"/>
                     </h:selectManyListbox>
                     <p:outputLabel value="Premios" for="losPremios" />
                     <h:selectManyListbox id="losPremios" value="#{libroController.selected.libroPremioList}" size="5">
-                        <f:selectItems value="#{premioController.itemsPorLibro}"/> 
+                        <f:selectItems value="#{premioController.cargarLibroPremio(libroController.selected)}"/>
+                        <f:converter converterId="premiosLibrosConverter"/>
                     </h:selectManyListbox>
                     <p:outputLabel value="Archivo" for="nomArchivo" />
                     <p:inputText id="nomArchivo" value="#{libroController.selected.nomArchivo}" title="#{bundle.CreateLibroTitle_nomArchivo}" />

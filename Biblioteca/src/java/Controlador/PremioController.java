@@ -3,6 +3,8 @@ package Controlador;
 import Entidades.Premio;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
+import Entidades.Libro;
+import Entidades.LibroPremio;
 import Repositorios.PremioFacade;
 
 import java.io.Serializable;
@@ -188,6 +190,11 @@ public class PremioController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+    
+    public SelectItem[] cargarLibroPremio(Libro libro) {
+        return getSelectItemsCreacion(libro, ejbFacade.premiosLibro(), true);
+    }
+    
     public SelectItem[] getItemsPorLibro() {
         return getSelectItems(ejbFacade.premiosLibro(), true);
     }
@@ -248,4 +255,17 @@ public class PremioController implements Serializable {
         return items;
     }
 
+    public static SelectItem[] getSelectItemsCreacion(Libro libro, List<Premio> entities, boolean selectOne) {
+        SelectItem[] items = new SelectItem[entities.size()];
+        int i = 0;
+        LibroPremio libPremio;
+        for (Premio premio : entities) {
+            libPremio = new LibroPremio();
+            libPremio.setLibroId(libro);
+            libPremio.setPremioId(premio);
+            libPremio.setId(1);
+            items[i++] = new SelectItem(libPremio, libPremio.getPremioId().getNomPremio());
+        }
+        return items;
+    }
 }
