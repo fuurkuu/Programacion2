@@ -43,4 +43,5 @@ public class LibroFacade extends AbstractFacade<Libro> {
         q = em.createNamedQuery("Libro.findByAutor").setParameter("elAutor", autor);
         return q.getResultList();
     }
+        
 }

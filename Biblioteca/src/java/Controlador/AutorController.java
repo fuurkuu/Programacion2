@@ -259,7 +259,7 @@ public class AutorController implements Serializable {
             autLib.setAutorId(autor);
             autLib.setLibroId(libro);
             autLib.setId(i);
-            items[i++] = new SelectItem(autLib,(autLib.getAutorId().getNomAutor() + " " + autLib.getAutorId().getApellido1() + " " + autLib.getAutorId().getApellido2()));
+            items[i++] = new SelectItem(autLib,(autor.getNomAutor() + " " + autor.getApellido1() + " " + autor.getApellido2()));
         }
         return items;
     }

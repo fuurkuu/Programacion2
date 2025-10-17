@@ -263,8 +263,8 @@ public class PremioController implements Serializable {
             libPremio = new LibroPremio();
             libPremio.setLibroId(libro);
             libPremio.setPremioId(premio);
-            libPremio.setId(1);
-            items[i++] = new SelectItem(libPremio, libPremio.getPremioId().getNomPremio());
+            libPremio.setId(i);
+            items[i++] = new SelectItem(libPremio, premio.getNomPremio());
         }
         return items;
     }
