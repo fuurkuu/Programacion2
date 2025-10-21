@@ -14,14 +14,17 @@
             <h:form>
                 <p:toolbar style="margin-bottom: 10; width: 69%; float: left">
                     <f:facet name="left" >
-                        <p:selectOneMenu id="unAutor" value="#{libroController.autor}">
+                        <p:selectOneMenu id="unAutor" value="#{libroController.autor}" onchange="#{libroController.loadLibrosAutor()} submit()">
                             <f:selectItems value="#{autorController.itemsAvailableSelectOne}"/> 
                         </p:selectOneMenu>
+                    </f:facet>
+                    <f:facet name="right">
+                        <h:graphicImage library="imagenes" name="#{libroController.autor.foto}" height="100"/>
                     </f:facet>
                 </p:toolbar>
             </h:form>
             <h:form styleClass="jsfcrud_list_form">
-                <p:dataTable value="#{libroController.lista}" var="libro">
+                <p:dataTable value="#{libroController.lista}" var="libro" style="width: 70%; float: left; margin-bottom: 40">
                         <p:column headerText="Titulo" sortBy="#{libro.nomLibro}" width="250px">
                             <h:outputText value="#{libro.nomLibro} "/>
                         </p:column>
@@ -37,11 +40,6 @@
                             <h:graphicImage library="portadas" name="#{libro.portada}" width="400"/>
                         </p:dialog>
                         </p:column>
-                        <p:column headerText="Autores" width="250" >
-                            <h:selectManyListbox id="susAutores" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
-                                <f:selectItems value="#{libro.autorLibroList}" var="autorLibro" itemLabel="#{autorLibro.autorId.nomAutor} #{autorLibro.autorId.apellido1} #{autorLibro.autorId.apellido2}"/> 
-                            </h:selectManyListbox>
-                        </p:column>
                         <p:column headerText="Sus Premios" width="250">
                             <h:selectManyListbox id="susPremios" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
                                 <f:selectItems value="#{libro.libroPremioList}" var="libroPremio" itemLabel="#{libroPremio.premioId.nomPremio}"/> 
@@ -50,17 +48,15 @@
                         <p:column headerText="Pélicula" style="text-align: center">
                             <h:graphicImage library="iconos" name="trailer.png" rendered="#{libroController.tienePeli(libro)}" height="35"/>
                         </p:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{libroController.prepareView}" value="#{bundle.ListLibroViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{libroController.prepareEdit}" value="#{bundle.ListLibroEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{libroController.destroy}" value="#{bundle.ListLibroDestroyLink}"/>
-                        </h:column>
                     </p:dataTable>
+                <div class="card">
+                    <p:galleria value="#{libroController.lista}" var="libro" style="float: right; margin-right: 70px; max-width: 500px" circular="true" autoPlay="true" transitionInterval="2000">
+                        <p:graphicImage library="portadas" name="#{libro.portada}" style="width: 100%" />
+                        <f:facet name="thumbnail">
+                            <p:graphicImage library="portadas" name="#{libro.portada}" style="width: 100px" />
+                        </f:facet>
+                    </p:galleria>
+                </div>
                 <br />
                 <h:commandLink action="#{libroController.prepareCreate}" value="#{bundle.ListLibroCreateLink}"/>
                 <br />

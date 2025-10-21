@@ -32,8 +32,8 @@ public class LibroController implements Serializable {
     private Repositorios.LibroFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private Autor autor;
-    private List<Libro> lista;
+    private Autor autor; 
+    private List<Libro> lista; // Lista de libros
 
     public List<Libro> getLista() {
         return lista;
@@ -53,7 +53,7 @@ public class LibroController implements Serializable {
         
     public LibroController() {
     }
-
+    
     public Libro getSelected() {
         if (current == null) {
             current = new Libro();
@@ -273,6 +273,8 @@ public class LibroController implements Serializable {
         public boolean tienePeli(Libro libro){
             return(libro.getPelicula() != "");
     }
-        
+        public void loadLibrosAutor(){
+            this.setLista(ejbFacade.libroAutorOrdenado(autor));
+    }
 
 }
