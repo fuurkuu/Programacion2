@@ -188,7 +188,7 @@ public class PremioController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return getSelectItems(ejbFacade.findAll(), true);
     }
     
     public SelectItem[] cargarLibroPremio(Libro libro) {
@@ -254,6 +254,7 @@ public class PremioController implements Serializable {
         }
         return items;
     }
+    
 
     public static SelectItem[] getSelectItemsCreacion(Libro libro, List<Premio> entities, boolean selectOne) {
         SelectItem[] items = new SelectItem[entities.size()];
