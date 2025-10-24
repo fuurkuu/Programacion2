@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AutorPremio.findAll", query = "SELECT a FROM AutorPremio a")
+    , @NamedQuery(name = "AutorPremio.findByPremio", query = "SELECT ap FROM AutorPremio ap WHERE ap.premioId=:elPremio ORDER BY ap.anio")
     , @NamedQuery(name = "AutorPremio.findById", query = "SELECT a FROM AutorPremio a WHERE a.id = :id")
     , @NamedQuery(name = "AutorPremio.findByAnio", query = "SELECT a FROM AutorPremio a WHERE a.anio = :anio")})
 public class AutorPremio implements Serializable {

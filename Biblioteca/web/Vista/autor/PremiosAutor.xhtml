@@ -25,45 +25,52 @@
             </h:form>
             <h:form styleClass="jsfcrud_list_form">
                 <p:dataTable value="#{autorController.lista}" var="autor" rows="10" style="width: 70%; float: left; margin-bottom: 40">
-                        <p:column headerText="Nombre" sortBy="#{autor.apellido1}" width="250px">
-                            <h:outputText value="#{autor.apellido1} #{autor.apellido2}, #{autor.nomAutor} "/>
-                        </p:column>
-                        <p:column headerText="F. Nac" width="75" sortBy="#{autor.FNac}">
-                            <h:outputText value="#{autor.FNac}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="F. Def" width="75" sortBy="#{autor.FDef}">
-                            <h:outputText value="#{autor.FDef}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="Edad" sortBy="#{autor.FNac}" width="75">
-                            <h:outputText value="#{autorController.calcularEdad(autor.FNac)}" style="display:#{autorController.mostrarEdad(autor)}"/>   
-                        </p:column>
-                        <p:column headerText="Sus Libros" width="250">
-                            <h:selectManyListbox id="susLibros" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
-                                <f:selectItems value="#{libroController.cargarLibrosAutor(autor)}" var="libro" itemValue="#{libro.id}" itemLabel="#{libro.ano} - #{libro.nomLibro}"/>
-                            </h:selectManyListbox>
-                        </p:column>
-                        <p:column headerText="Foto">
-                        <p:commandLink title="#{autor.nomAutor}" onclick="PF('dlg#{autor.id}').show(); return false;">
-                            <h:graphicImage library="imagenes" name="#{autor.foto}" height="45"/>
+                    <p:column headerText="Nombre" sortBy="#{autor.autorId.apellido1}" width="250px">
+                        <h:outputText value="#{autor.autorId.apellido1} #{autor.autorId.apellido2}, #{autor.autorId.nomAutor} "/>
+                    </p:column>
+                    <p:column headerText="Año Premio" sortBy="#{autor.anio}" width="250px">
+                        <h:outputText value="#{autor.anio} "/>
+                    </p:column>
+                    <p:column headerText="F. Nac" width="75" sortBy="#{autor.autorId.FNac}">
+                        <h:outputText value="#{autor.autorId.FNac}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="F. Def" width="75" sortBy="#{autor.autorId.FDef}">
+                        <h:outputText value="#{autor.autorId.FDef}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Edad" sortBy="#{autor.autorId.FNac}" width="75">
+                        <h:outputText value="#{autorController.calcularEdad(autor.autorId.FNac)}" style="display:#{autorController.mostrarEdad(autor.autorId)}"/>   
+                    </p:column>
+                    <p:column headerText="Sus Libros" width="250">
+                        <h:selectManyListbox id="susLibros" style="width:250px; border: none; overflow-y: scroll; background: none;" size="3" disabled="true">
+                            <f:selectItems value="#{libroController.cargarLibrosAutor(autor.autorId)}" var="libro" itemValue="#{libro.id}" itemLabel="#{libro.ano} - #{libro.nomLibro}"/>
+                        </h:selectManyListbox>
+                    </p:column>
+                    <p:column headerText="Foto">
+                        <p:commandLink title="#{autor.autorId.nomAutor}" onclick="PF('dlg#{autor.autorId.id}').show(); return false;">
+                            <h:graphicImage library="imagenes" name="#{autor.autorId.foto}" height="45"/>
                         </p:commandLink>
-                        <p:dialog widgetVar="dlg#{autor.id}" header="#{autor.nomAutor}" modal="true" resizable="false" closable="true">
-                            <h:graphicImage library="imagenes" name="#{autor.foto}" width="400"/>
+                        <p:dialog widgetVar="dlg#{autor.autorId.id}" header="#{autor.autorId.nomAutor}" modal="true" resizable="false" closable="true">
+                            <h:graphicImage library="imagenes" name="#{autor.autorId.foto}" width="400"/>
                         </p:dialog>
-                        </p:column>
-                        <p:column headerText="País">
-                            <h:graphicImage library="banderas" name="#{autor.paisId.bandera}" height="45" style="border: black 1px solid; border-radius: 5px; "/>
-                            <br><h:outputText value="#{autor.paisId.nomPais}"/></br>
-                        </p:column>
-                    </p:dataTable>
+                    </p:column>
+                    <p:column headerText="País">
+                        <h:graphicImage library="banderas" name="#{autor.autorId.paisId.bandera}" height="45" style="border: black 1px solid; border-radius: 5px; "/>
+                        <br><h:outputText value="#{autor.autorId.paisId.nomPais}"/></br>
+                    </p:column>
+                </p:dataTable>
                 <div class="card">
-                    <p:galleria value="#{autorController.lista}" var="autor" style="float: right; margin-right: 70px; max-width: 450px" circular="true" autoPlay="true" transitionInterval="2000">
-                        <p:graphicImage library="imagenes" name="#{autor.foto}" style="width: 100%" />
+                    <p:galleria value="#{autorController.lista}" var="autor" style="float: right; margin-right: 70px; max-width: 500px" circular="true" autoPlay="true" transitionInterval="2000">
+                        <p:outputPanel>
+                        <h:outputText value="#{autor.anio}" style="display: block; text-align: center;" />
+                        <p:graphicImage library="imagenes" name="#{autor.autorId.foto}" style="width: 100%" />
+                        </p:outputPanel>
                         <f:facet name="thumbnail">
-                            <p:graphicImage library="imagenes" name="#{autor.foto}" style="width: 100px" />
+                            <p:graphicImage library="imagenes" name="#{autor.autorId.foto}" style="width: 100px" />
+                            <h:outputText value="#{autor.anio}" style="display: block; text-align: center;" />
                         </f:facet>
                     </p:galleria>
                 </div>

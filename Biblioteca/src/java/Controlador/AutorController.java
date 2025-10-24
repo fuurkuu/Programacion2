@@ -4,6 +4,7 @@ import Entidades.Autor;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
 import Entidades.AutorLibro;
+import Entidades.AutorPremio;
 import Entidades.Libro;
 import Entidades.Premio;
 import Repositorios.AutorFacade;
@@ -35,7 +36,7 @@ public class AutorController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private Premio premio;
-    private List<Autor> lista; // Lista de autores
+    private List<AutorPremio> lista; // Lista de autores
 
     public Premio getPremio() {
         return premio;
@@ -45,11 +46,11 @@ public class AutorController implements Serializable {
         this.premio = premio;
     }
 
-    public List<Autor> getLista() {
+    public List<AutorPremio> getLista() {
         return lista;
     }
 
-    public void setLista(List<Autor> lista) {
+    public void setLista(List<AutorPremio> lista) {
         this.lista = lista;
     }
 
