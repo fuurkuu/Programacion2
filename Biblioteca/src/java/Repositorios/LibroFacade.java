@@ -44,4 +44,5 @@ public class LibroFacade extends AbstractFacade<Libro> {
         return q.getResultList();
     }
         
+        
 }

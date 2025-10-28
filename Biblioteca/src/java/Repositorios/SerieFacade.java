@@ -5,7 +5,9 @@
  */
 package Repositorios;
 
+import Entidades.Libro;
 import Entidades.Serie;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,14 @@ public class SerieFacade extends AbstractFacade<Serie> {
 
     public SerieFacade() {
         super(Serie.class);
+    }
+    
+    public void crearSerieConLibros(Serie serie, List<Libro> librosSeleccionados){
+        em.persist(serie);
+        for(Libro libro : librosSeleccionados){
+            libro.setSerieId(serie);
+            em.merge(libro);
+        }
     }
     
 }

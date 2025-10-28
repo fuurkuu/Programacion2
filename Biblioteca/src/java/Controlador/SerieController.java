@@ -3,9 +3,13 @@ package Controlador;
 import Entidades.Serie;
 import Controlador.util.JsfUtil;
 import Controlador.util.PaginationHelper;
+import Entidades.Autor;
+import Entidades.Libro;
 import Repositorios.SerieFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -26,8 +30,43 @@ public class SerieController implements Serializable {
     private DataModel items = null;
     @EJB
     private Repositorios.SerieFacade ejbFacade;
+    @EJB
+    private Repositorios.LibroFacade libroFacade;
+    @EJB
+    private Repositorios.AutorFacade autorFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Autor autorSeleccionado;
+    private List<Libro> librosSeleccionados;
+    private List<Libro> librosDelAutor;
+
+    public List<Libro> getLibrosDelAutor() {
+        return librosDelAutor;
+    }
+
+    public void setLibrosDelAutor(List<Libro> librosDelAutor) {
+        this.librosDelAutor = librosDelAutor;
+    }
+    
+
+    public List<Libro> getLibrosSeleccionados() {
+        return librosSeleccionados;
+    }
+
+    public void setLibrosSeleccionados(List<Libro> librosSeleccionados) {
+        this.librosSeleccionados = librosSeleccionados;
+    }
+    
+
+    public Autor getAutorSeleccionado() {
+        return autorSeleccionado;
+    }
+
+    public void setAutorSeleccionado(Autor autorSeleccionado) {
+        this.autorSeleccionado = autorSeleccionado;
+    }
+    
+    
 
     public SerieController() {
     }
@@ -81,9 +120,12 @@ public class SerieController implements Serializable {
 
     public String create() {
         try {
-            getFacade().create(current);
+            ejbFacade.crearSerieConLibros(current, librosSeleccionados);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SerieCreated"));
-            return prepareCreate();
+            current = new Serie();
+            librosSeleccionados = null;
+            autorSeleccionado = null;
+            return "/Vista/serie/List?faces-redirect=true";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -229,7 +271,14 @@ public class SerieController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Serie.class.getName());
             }
         }
-
     }
+        
+        public void cargarLibrosAutor(){
+            if(autorSeleccionado != null){
+                this.librosDelAutor = libroFacade.libroAutorOrdenado(autorSeleccionado);
+            }else{
+                this.librosDelAutor = new ArrayList<>();
+            }
+        }
 
 }

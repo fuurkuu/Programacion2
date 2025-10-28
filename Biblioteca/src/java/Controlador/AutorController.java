@@ -222,7 +222,7 @@ public class AutorController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Autor.class)
+    @FacesConverter(forClass = Autor.class, value="autorConverter")
     public static class AutorControllerConverter implements Converter {
 
         @Override

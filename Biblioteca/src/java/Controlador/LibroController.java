@@ -34,6 +34,7 @@ public class LibroController implements Serializable {
     private int selectedItemIndex;
     private Autor autor; 
     private List<Libro> lista; // Lista de libros
+    
 
     public List<Libro> getLista() {
         return lista;
@@ -220,7 +221,7 @@ public class LibroController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Libro.class)
+    @FacesConverter(forClass = Libro.class, value="libroConverter")
     public static class LibroControllerConverter implements Converter {
 
         @Override
