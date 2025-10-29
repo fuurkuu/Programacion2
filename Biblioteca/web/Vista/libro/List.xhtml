@@ -45,7 +45,11 @@
                         <p:column headerText="Pélicula" style="text-align: center">
                             <h:graphicImage library="iconos" name="trailer.png" rendered="#{libroController.tienePeli(libro)}" height="35"/>
                         </p:column>
-                        <h:column>
+                        <p:column headerText="Serie" style="text-align: center" sortBy="#{libro.serieId.denominacion}">
+                             <h:outputText value="#{libro.serieId.denominacion}">
+                             </h:outputText>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -54,7 +58,7 @@
                             <h:commandLink action="#{libroController.prepareEdit}" value="#{bundle.ListLibroEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{libroController.destroy}" value="#{bundle.ListLibroDestroyLink}"/>
-                        </h:column>
+                        </p:column>
                     </p:dataTable>
                 <br />
                 <h:commandLink action="#{libroController.prepareCreate}" value="#{bundle.ListLibroCreateLink}"/>

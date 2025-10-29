@@ -21,7 +21,10 @@
                 <p:menuitem value="Sus Libros" outcome="/Vista/libro/LibrosAutor" icon="pi pi-book"/>
             </p:submenu>
             <p:menuitem value="Premios" outcome="/Vista/premio/List" icon="pi pi-paypal"/>
-            <p:menuitem value="Series" outcome="/Vista/serie/CrearNuevo" icon="pi pi-book"/>
+            <p:submenu label="Series" icon="pi pi-server">
+                <p:menuitem value="Crear" outcome="/Vista/serie/CrearNuevo" icon="pi pi-database"/>
+                <p:menuitem value="Lista" outcome="/Vista/serie/List" icon="pi pi-folder-open"/>
+            </p:submenu>
             
         </p:tieredMenu>
     </div>

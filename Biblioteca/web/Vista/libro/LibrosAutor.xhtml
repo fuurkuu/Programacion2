@@ -14,7 +14,7 @@
             <h:form>
                 <p:toolbar style="margin-bottom: 10; width: 69%; float: left">
                     <f:facet name="left" >
-                        <p:selectOneMenu id="unAutor" value="#{libroController.autor}" onchange="#{libroController.loadLibrosAutor()} submit()">
+                        <p:selectOneMenu id="unAutor" value="#{libroController.autor}" converter="autorConverter" onchange="#{libroController.loadLibrosAutor()} submit()">
                             <f:selectItems value="#{autorController.itemsAvailableSelectOne}"/> 
                         </p:selectOneMenu>
                     </f:facet>
@@ -45,8 +45,15 @@
                                 <f:selectItems value="#{libro.libroPremioList}" var="libroPremio" itemLabel="#{libroPremio.premioId.nomPremio}"/> 
                             </h:selectManyListbox>
                         </p:column>
+                        <p:column headerText="Serie" style="text-align: center" sortBy="#{libro.serieId.denominacion}">
+                            <h:outputText value="#{libro.serieId.denominacion} - #{libro.indiceSerie}">
+                             </h:outputText>
+                        </p:column>
                         <p:column headerText="Pélicula" style="text-align: center">
                             <h:graphicImage library="iconos" name="trailer.png" rendered="#{libroController.tienePeli(libro)}" height="35"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="text-align: center">
+                            <h:commandLink action="#{libroController.prepareEdit}" value="#{bundle.ListLibroEditLink}"/>
                         </p:column>
                     </p:dataTable>
                 <div class="card">
