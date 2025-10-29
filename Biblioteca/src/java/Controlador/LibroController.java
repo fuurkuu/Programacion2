@@ -32,9 +32,9 @@ public class LibroController implements Serializable {
     private Repositorios.LibroFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private Autor autor; 
+    private Autor autor;
     private List<Libro> lista; // Lista de libros
-    
+    private DataModel<Libro> dataModelLibros;
 
     public List<Libro> getLista() {
         return lista;
@@ -43,7 +43,7 @@ public class LibroController implements Serializable {
     public void setLista(List<Libro> lista) {
         this.lista = lista;
     }
-    
+
     public Autor getAutor() {
         return autor;
     }
@@ -51,10 +51,10 @@ public class LibroController implements Serializable {
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-        
+
     public LibroController() {
     }
-    
+
     public Libro getSelected() {
         if (current == null) {
             current = new Libro();
@@ -104,10 +104,10 @@ public class LibroController implements Serializable {
 
     public String create() {
         try {
-            for (AutorLibro al : current.getAutorLibroList()){
+            for (AutorLibro al : current.getAutorLibroList()) {
                 al.setLibroId(current);
             }
-            for (LibroPremio lp : current.getLibroPremioList()){
+            for (LibroPremio lp : current.getLibroPremioList()) {
                 lp.setLibroId(current);
             }
             getFacade().create(current);
@@ -122,6 +122,20 @@ public class LibroController implements Serializable {
     public String prepareEdit() {
         current = (Libro) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Edit";
+    }
+
+    public DataModel<Libro> getDataModelLibros() {
+        if (dataModelLibros == null && lista != null) {
+            dataModelLibros = new ListDataModel<>(lista);
+        }
+        return dataModelLibros;
+    }
+
+    public String prepareEdit2() {
+        Libro seleccionado = getDataModelLibros().getRowData();
+        current = seleccionado;
+        selectedItemIndex = lista.indexOf(seleccionado); // O usa paginación si aplica
         return "Edit";
     }
 
@@ -188,7 +202,7 @@ public class LibroController implements Serializable {
         }
         return items;
     }
-    
+
     private void recreateModel() {
         items = null;
     }
@@ -221,7 +235,7 @@ public class LibroController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Libro.class, value="libroConverter")
+    @FacesConverter(forClass = Libro.class, value = "libroConverter")
     public static class LibroControllerConverter implements Converter {
 
         @Override
@@ -260,7 +274,8 @@ public class LibroController implements Serializable {
         }
 
     }
-        public static SelectItem[] getSelectItems(List<Libro> entities, boolean selectOne) {
+
+    public static SelectItem[] getSelectItems(List<Libro> entities, boolean selectOne) {
         SelectItem[] items = new SelectItem[entities.size()];
         int i = 0;
         for (Libro libro : entities) {
@@ -268,14 +283,18 @@ public class LibroController implements Serializable {
         }
         return items;
     }
-        public List<Libro> cargarLibrosAutor(Autor autor){
-            return ejbFacade.libroAutorOrdenado(autor);
+
+    public List<Libro> cargarLibrosAutor(Autor autor) {
+        return ejbFacade.libroAutorOrdenado(autor);
     }
-        public boolean tienePeli(Libro libro){
-            return(libro.getPelicula() != "");
+
+    public boolean tienePeli(Libro libro) {
+        return (libro.getPelicula() != "");
     }
-        public void loadLibrosAutor(){
-            this.setLista(ejbFacade.libroAutorOrdenado(autor));
+
+    public void loadLibrosAutor() {
+        this.setLista(ejbFacade.libroAutorOrdenado(autor));
+        this.dataModelLibros = new ListDataModel<>(lista); // Actualiza el DataModel
     }
 
 }
